@@ -2,11 +2,11 @@
 #include <iostream>
 #include <fstream>
 #include <iterator>
-#include "../../rapidxml.hpp"
-#include "../../rapidxml_print.hpp"
+#include "../../rapidxml_ns.hpp"
+#include "../../rapidxml_ns_print.hpp"
 
 using namespace std;
-using namespace rapidxml;
+using namespace rapidxml_ns;
 
 void parse_and_print_2(const char *filename)
 {

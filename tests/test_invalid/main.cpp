@@ -1,5 +1,5 @@
 #include "../test_utils.hpp"
-#include "../../rapidxml.hpp"
+#include "../../rapidxml_ns.hpp"
 #include <vector>
 #include <string>
 #include <fstream>
@@ -7,7 +7,7 @@
 #include <cstdlib>
 #include <stdexcept>
 
-using namespace rapidxml;
+using namespace rapidxml_ns;
 using namespace std;
 
 // Tests parsing a valid document which is progressively truncated by 1 character
@@ -36,10 +36,10 @@ void test_progressive_truncations()
         {
             vector<char> data(original);    // Make a copy
             data[end] = '\0';               // Truncate
-            rapidxml::xml_document<char> doc;
+            rapidxml_ns::xml_document<char> doc;
             doc.parse<Flags>(&data.front());
         }
-        catch (rapidxml::parse_error &)
+        catch (rapidxml_ns::parse_error &)
         {
             // Ignore errors
             ++count;
@@ -89,10 +89,10 @@ void test_random_mutations()
         // Parse
         try
         {
-            rapidxml::xml_document<char> doc;
+            rapidxml_ns::xml_document<char> doc;
             doc.parse<Flags>(&data.front());
         }
-        catch (rapidxml::parse_error &)
+        catch (rapidxml_ns::parse_error &)
         {
             // Ignore errors
             ++count;

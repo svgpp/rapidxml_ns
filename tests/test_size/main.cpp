@@ -1,9 +1,9 @@
 #define RAPIDXML_NO_EXCEPTIONS
-#include "../../rapidxml.hpp"
+#include "../../rapidxml_ns.hpp"
 
 int error;
 
-namespace rapidxml
+namespace rapidxml_ns
 {
     void parse_error_handler(const char *, void *) 
     { 
@@ -11,7 +11,7 @@ namespace rapidxml
     }
 }
 
-using namespace rapidxml;
+using namespace rapidxml_ns;
 
 int main(int argc, char *argv[])
 {

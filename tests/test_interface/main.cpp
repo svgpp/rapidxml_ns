@@ -1,9 +1,9 @@
 #include "../test_utils.hpp"
-#include "../../rapidxml.hpp"
+#include "../../rapidxml_ns.hpp"
 #include <iostream>
 
 using namespace std;
-using namespace rapidxml;
+using namespace rapidxml_ns;
 
 void test_parent()
 {

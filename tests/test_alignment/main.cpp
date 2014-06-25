@@ -1,11 +1,11 @@
 #include "../test_utils.hpp"
-#include "../../rapidxml.hpp"
-#include "../../rapidxml_utils.hpp"
+#include "../../rapidxml_ns.hpp"
+#include "../../rapidxml_ns_utils.hpp"
 #include <cstring>
 #include <map>
 
 using namespace std;
-using namespace rapidxml;
+using namespace rapidxml_ns;
 
 void test_alignment()
 {

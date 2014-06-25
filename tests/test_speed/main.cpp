@@ -8,8 +8,8 @@
 #include <stdexcept>
 
 #define RAPIDXML_NO_EXCEPTIONS
-#include "../../rapidxml.hpp"
 #include "../../rapidxml_ns.hpp"
+#include "../other_parsers/rapidxml/rapidxml.hpp"
 #include "../other_parsers/pugixml/pugixml.hpp"
 
 #include "../other_parsers/tinyxml/tinyxml.h"

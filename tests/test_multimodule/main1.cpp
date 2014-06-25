@@ -1,13 +1,13 @@
 #include "../test_utils.hpp"
-#include "../../rapidxml.hpp"
-#include "../../rapidxml_print.hpp"
+#include "../../rapidxml_ns.hpp"
+#include "../../rapidxml_ns_print.hpp"
 #include <vector>
 #include <fstream>
 #include <iostream>
 #include <iterator>
 
 using namespace std;
-using namespace rapidxml;
+using namespace rapidxml_ns;
 
 void parse_and_print_1(const char *filename)
 {

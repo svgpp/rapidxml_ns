@@ -2,8 +2,8 @@
 #define RAPIDXML_DYNAMIC_POOL_SIZE 64 * 1024
 
 #include "../test_utils.hpp"
-#include "../../rapidxml.hpp"
-#include "../../rapidxml_utils.hpp"
+#include "../../rapidxml_ns.hpp"
+#include "../../rapidxml_ns_utils.hpp"
 #include <string>
 #include <vector>
 #include <fstream>
@@ -11,7 +11,7 @@
 #include <cstring>
 
 using namespace std;
-using namespace rapidxml;
+using namespace rapidxml_ns;
 
 #define MAGIC "Dead beef!"
 
