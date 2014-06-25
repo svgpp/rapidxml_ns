@@ -9,6 +9,7 @@
 
 #define RAPIDXML_NO_EXCEPTIONS
 #include "../../rapidxml.hpp"
+#include "../../rapidxml_ns.hpp"
 #include "../other_parsers/pugixml/pugixml.hpp"
 
 #include "../other_parsers/tinyxml/tinyxml.h"
@@ -38,6 +39,14 @@ namespace rapidxml
                   << string(begin, end)
                   << "\n*** END\n";
         std::exit(1);
+    }
+}
+
+namespace rapidxml_ns
+{
+    void parse_error_handler(const char *what, void *where_void) 
+    {
+       rapidxml::parse_error_handler(what, where_void);
     }
 }
 
@@ -77,6 +86,16 @@ struct rapidxml_parser
     {
         doc.parse<Flags>(data);
     }
+};
+
+template<int Flags>
+struct rapidxml_ns_parser
+{
+  rapidxml_ns::xml_document<char> doc;
+  void parse(char *data)
+  {
+    doc.parse<Flags>(data);
+  }
 };
 
 struct tinyxml_parser
@@ -174,6 +193,9 @@ void test_all(const char *filename)
     printf("    rapidxml:\n");
     test<rapidxml_parser<parse_fastest> >(filename, "mode=fastest");
     test<rapidxml_parser<parse_default> >(filename, "mode=default");
+    printf("    rapidxml_ns:\n");
+    test<rapidxml_ns_parser<parse_fastest|rapidxml_ns::parse_no_namespace> >(filename, "mode=fastest");
+    test<rapidxml_ns_parser<parse_default> >(filename, "mode=default");
     printf("    pugixml:\n");
     test<pugixml_parser<pugi::parse_minimal> >(filename, "mode=fastest");
     test<pugixml_parser<pugi::parse_default> >(filename, "mode=default");

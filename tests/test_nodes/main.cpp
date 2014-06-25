@@ -1,4 +1,4 @@
-#include "../../rapidxml_utils.hpp"
+#include "../../rapidxml_ns_utils.hpp"
 #include "../test_utils.hpp"
 
 #ifdef _MSC_VER
@@ -7,7 +7,7 @@
 #endif
 
 using namespace std;
-using namespace rapidxml;
+using namespace rapidxml_ns;
 
 template<int Flags>
 string name(xml_base<char> *node)

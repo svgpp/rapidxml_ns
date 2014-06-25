@@ -1,8 +1,8 @@
-#include "../../rapidxml_utils.hpp"
+#include "../../rapidxml_ns_utils.hpp"
 #include "../test_utils.hpp"
 
 using namespace std;
-using namespace rapidxml;
+using namespace rapidxml_ns;
 
 int main()
 {

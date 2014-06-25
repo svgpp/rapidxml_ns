@@ -1,4 +1,4 @@
-#include "../../rapidxml.hpp"
+#include "../../rapidxml_ns.hpp"
 #include <vector>
 #include <string>
 #include <fstream>
@@ -7,7 +7,7 @@
 #include <cstring>
 #include <stdexcept>
 
-using namespace rapidxml;
+using namespace rapidxml_ns;
 using namespace std;
 
 template<int Flags>
@@ -27,7 +27,7 @@ void test_xml_file(const string &filename)
     // Parse
     try
     {
-        rapidxml::xml_document<char> doc;
+        rapidxml_ns::xml_document<char> doc;
         doc.parse<Flags>(&data.front());
         cout << "Test " << filename << " succeeded.\n";
     }
@@ -67,9 +67,9 @@ int main()
         return 0;
 
     }
-    catch (rapidxml::parse_error &e)
+    catch (rapidxml_ns::parse_error &e)
     {
-        cout << "rapidxml::parse_error: " << e.what() << "\n";
+        cout << "rapidxml_ns::parse_error: " << e.what() << "\n";
         return 1;
     }
     catch (exception &e)
