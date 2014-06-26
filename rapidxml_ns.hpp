@@ -431,12 +431,13 @@ namespace rapidxml_ns
                         attr->namespace_uri(xmlns_namespace<Ch>::uri(), xmlns_namespace<Ch>::uri_size);
                         ns_storage.set_default_namespace(attr);
                     }
-                    break;
+                    continue;
                 case xml_namespace<Ch>::prefix_size:
                     if (compare(attr->prefix(), attr->prefix_size(), 
                         xml_namespace<Ch>::prefix(), xml_namespace<Ch>::prefix_size))
                     {
                         attr->namespace_uri(xml_namespace<Ch>::uri(), xml_namespace<Ch>::uri_size);
+                        continue;
                     }
                     break;
                 case xmlns_namespace<Ch>::prefix_size:
@@ -445,13 +446,12 @@ namespace rapidxml_ns
                     {
                         attr->namespace_uri(xmlns_namespace<Ch>::uri(), xmlns_namespace<Ch>::uri_size);
                         ns_storage.add_namespace_prefix(attr);
+                        continue;
                     }
                     break;
-                default:
-                    if (!first_prefixed_attribute)
-                        first_prefixed_attribute = attr;
-                    break;
                 } // switch
+                if (!first_prefixed_attribute)
+                    first_prefixed_attribute = attr;
             } // for
             if (element->prefix_size() == 0)
                 ns_storage.set_element_default_namespace_uri(element);
