@@ -500,7 +500,7 @@ namespace rapidxml_ns
                 {
                     Ch const * prefix = node->prefix();
                     std::size_t prefix_size = node->prefix_size();
-                    for (xml_namespace_processor::xmlns_attributes_t::const_reverse_iterator 
+                    for (typename xml_namespace_processor::xmlns_attributes_t::const_reverse_iterator 
                             it = m_processor.m_namespace_prefixes.rbegin();
                             it != m_processor.m_namespace_prefixes.rend(); ++it)
                         if (compare((*it)->local_name(), (*it)->local_name_size(), prefix, prefix_size))
@@ -1768,7 +1768,7 @@ namespace rapidxml_ns
             
             NamespaceProcessor namespace_processor;
             // Creating topmost namespace scope that actually won't be used
-            NamespaceProcessor::scope const namespace_scope(namespace_processor);
+            typename NamespaceProcessor::scope const namespace_scope(namespace_processor);
 
             // Parse BOM, if any
             parse_bom<Flags>(text);
@@ -1785,7 +1785,7 @@ namespace rapidxml_ns
                 if (*text == Ch('<'))
                 {
                     ++text;     // Skip '<'
-                    if (xml_node<Ch> *node = parse_node<Flags, NamespaceProcessor::scope>(text, namespace_scope))
+                    if (xml_node<Ch> *node = parse_node<Flags, typename NamespaceProcessor::scope>(text, namespace_scope))
                         this->append_node(node);
                 }
                 else
