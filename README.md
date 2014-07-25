@@ -6,7 +6,7 @@ RapidXML NS is a branch of [RapidXML](http://rapidxml.sourceforge.net/) 1.13 C++
 Documentation
 ==========
 
-Documentation is in [manual.html](manual.html) in root directory.
+Documentation is in [manual.html](http://htmlpreview.github.io/?https://raw.githubusercontent.com/svgpp/rapidxml_ns/master/manual.html) in root folder.
 
 License
 ==========
