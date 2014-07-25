@@ -1,6 +1,6 @@
-#include "../../rapidxml.hpp"
-#include "../../rapidxml_print.hpp"
-#include "../../rapidxml_utils.hpp"
+#include "../../rapidxml_ns.hpp"
+#include "../../rapidxml_ns_print.hpp"
+#include "../../rapidxml_ns_utils.hpp"
 #include <iostream>
 #include <vector>
 #include <string>
@@ -8,7 +8,7 @@
 #include <cstdio>
 #include <cassert>
 
-using namespace rapidxml;
+using namespace rapidxml_ns;
 using namespace std;
 
 xml_document<char> doc;

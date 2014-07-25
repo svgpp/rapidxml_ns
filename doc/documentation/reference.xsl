@@ -109,14 +109,14 @@
 				<!-- Manual  -->
 				<!-- ************************** -->
 
-        <h1>RAPIDXML Manual</h1>
+        <h1>RAPIDXML NS Manual</h1>
 
         <h3>Version 1.13</h3>
 
-			  <!-- rapidxml namespace -->
+			  <!-- rapidxml_ns namespace -->
 
 			  <xsl:for-each select="compound">
-				  <xsl:if test="@kind='namespace' and name='rapidxml'">
+				  <xsl:if test="@kind='namespace' and name='rapidxml_ns'">
 					  <xsl:variable name="compoundId" select="@refid"></xsl:variable>
 					  <xsl:for-each select="document(concat(@refid, '.xml'))/doxygen//compounddef">
 						  <xsl:if test="@id=$compoundId">

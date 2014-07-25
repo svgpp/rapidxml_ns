@@ -1,7 +1,8 @@
 // This documentation is parsed by Doxygen to produce manual with working links to reference section
 
-//! \namespace rapidxml
+//! \namespace rapidxml_ns
 //!	<i>Copyright (C) 2006, 2009 Marcin Kalicinski</i>
+//!	<br><i>Copyright (C) 2014 Oleg Maximenko</i>
 //! <br>
 //! <i>See accompanying file <a href="license.txt">license.txt</a> for license information.</i>
 //! <hr>
@@ -9,20 +10,22 @@
 //! \xmlonly <toc></toc> \endxmlonly
 //! <br>
 //!
-//! \section what_is_rapidxml What is RapidXml?
+//! \section what_is_rapidxml What is RapidXml NS?
 //!
 //! <a href="http://rapidxml.sourceforge.net">RapidXml</a> is an attempt to create the fastest XML DOM parser possible, while retaining useability, 
 //! portability and reasonable W3C compatibility. 
 //! It is an in-situ parser written in C++, with parsing speed approaching that of <c>strlen()</c> function executed on the same data.
 //! <br><br>
+//! RapidXML NS is a derivation of RapidXML with XML Namespaces 1.0 support added.
+//! <br><br>
 //! Entire parser is contained in a single header file, so no building or linking is neccesary. 
-//! To use it you just need to copy <c>%rapidxml.hpp</c> file to a convenient place (such as your project directory), and include it where needed.
-//! You may also want to use printing functions contained in header <c>%rapidxml_print.hpp</c>.
+//! To use it you just need to copy <c>%rapidxml_ns.hpp</c> file to a convenient place (such as your project directory), and include it where needed.
+//! You may also want to use printing functions contained in header <c>%rapidxml_ns_print.hpp</c>.
 //!
 //! \subsection dependencies_and_compatibility Dependencies And Compatibility
 //!
 //! RapidXml has <i>no dependencies</i> other than a very small subset of standard C++ library 
-//! (<c>&lt;cassert&gt;</c>, <c>&lt;cstdlib&gt;</c>, <c>&lt;new&gt;</c> 
+//! (<c>&lt;cassert&gt;</c>, <c>&lt;cstdlib&gt;</c>, <c>&lt;new&gt;</c>, <c>&lt;vector&gt;</c>
 //! and <c>&lt;exception&gt;</c>, unless exceptions are disabled).
 //! It should compile on any reasonably conformant compiler, and was tested on Visual C++ 2003, Visual C++ 2005, Visual C++ 2008, gcc 3, gcc 4, and Comeau 4.3.3.
 //! Care was taken that no warnings are produced on these compilers, even with highest warning levels enabled.
@@ -61,7 +64,7 @@
 //! \subsection api_design API Design
 //!
 //! RapidXml API is minimalistic, to reduce code size as much as possible, and facilitate use in embedded environments.
-//! Additional convenience functions are provided in separate headers: <c>rapidxml_utils.hpp</c> and <c>rapidxml_print.hpp</c>.
+//! Additional convenience functions are provided in separate headers: <c>rapidxml_ns_utils.hpp</c> and <c>rapidxml_ns_print.hpp</c>.
 //! Contents of these headers is not an essential part of the library, and is currently not documented (otherwise than with comments in code).
 //!
 //! \subsection reliability Reliability
@@ -93,12 +96,12 @@
 //!
 //! The following code causes RapidXml to parse a zero-terminated string named <c>text</c>:
 //! \verbatim
-using namespace rapidxml;
+using namespace rapidxml_ns;
 xml_document<> doc;    // character type defaults to char
 doc.parse<0>(text);    // 0 means default parse flags
 \endverbatim
 //! <c>doc</c> object is now a root of DOM tree containing representation of the parsed XML.
-//! Because all RapidXml interface is contained inside namespace <c>rapidxml</c>, 
+//! Because all RapidXml NS interface is contained inside namespace <c>rapidxml_ns</c>, 
 //! users must either bring contents of this namespace into scope, or fully qualify all the names.
 //! Class xml_document represents a root of the DOM hierarchy. 
 //! By means of public inheritance, it is also an xml_node and a memory_pool.
@@ -150,7 +153,7 @@ xml_node<> *node = doc.allocate_node(node_element, node_name);  // Set node name
 //!
 //! You can print <c>xml_document</c> and <c>xml_node</c> objects into an XML string. Use print() function or operator <<, which are defined in <c>rapidxml_print.hpp</c> header.
 //! \verbatim
-using namespace rapidxml;
+using namespace rapidxml_ns;
 xml_document<> doc;    // character type defaults to char
 // ... some code to fill the document
 

@@ -248,6 +248,13 @@ namespace rapidxml_ns
     //! See xml_document::parse() function.
     const int parse_normalize_whitespace = 0x800;
 
+    //! Parse flag instructing the parser to skip assigning XML namespace URI to elements and attributes.
+    //! I.e. to behave like original RapidXML parser.
+    //! By default, namespaces are set. 
+    //! This flag does not cause the parser to modify source text.
+    //! Can be combined with other flags by use of | operator.
+    //! <br><br>
+    //! See xml_document::parse() function.
     const int parse_no_namespace = 0x1000;
 
     // Compound flags
@@ -880,11 +887,11 @@ namespace rapidxml_ns
             return m_local_name ? (m_name_size - (m_local_name - m_name)) : 0;
         }
 
-        // Gets namespace prefix.
-        // Returned string is never zero-terminated, regardless of parse_no_string_terminators. Use prefix_size()
-        // "Note that the prefix functions only as a placeholder for a namespace name. Applications 
-        // SHOULD use the namespace name, not the prefix, in constructing names whose scope extends beyond the containing 
-        // document" Namespaces in XML 1.0 (Third Edition)
+        //! Gets namespace prefix.
+        //! Returned string is never zero-terminated, regardless of parse_no_string_terminators. Use prefix_size()
+        //! "Note that the prefix functions only as a placeholder for a namespace name. Applications 
+        //! SHOULD use the namespace name, not the prefix, in constructing names whose scope extends beyond the containing 
+        //! document" Namespaces in XML 1.0 (Third Edition)
         Ch *prefix() const
         {
             return m_name ? m_name : nullstr();
@@ -935,11 +942,20 @@ namespace rapidxml_ns
             return m_value ? m_value_size : 0;
         }
 
+        //! Gets namespace URI of the node. 
+        //! Note that URI will not be zero-terminated if rapidxml_ns::parse_no_string_terminators option was selected during parse.
+        //! Namespace URI is not assigned if rapidxml_ns::parse_no_namespace option was selected during parse.
+        //! <br><br>
+        //! Use namespace_uri_size() function to determine length of the name.
+        //! \return Namespace URI of node, or empty string if node has no namespace assigned.
         Ch const *namespace_uri() const
         {
             return m_namespace_uri ? m_namespace_uri : nullstr();
         }
 
+        //! Gets size of namespace URI value, not including terminator character.
+        //! This function works correctly irrespective of whether namespace URI is or is not zero terminated.
+        //! \return Size of namespace URI, in characters.
         std::size_t namespace_uri_size() const
         {
             return m_namespace_uri ? m_namespace_uri_size : 0;
@@ -978,7 +994,7 @@ namespace rapidxml_ns
             this->name(name, internal::measure(name));
         }
 
-        // Sets QName as PrefixedName or UnprefixedName where local_part points in QName string
+        //! Sets QName as PrefixedName or UnprefixedName where local_part points in QName string
         void qname(const Ch *qname, std::size_t qname_size, const Ch * local_part)
         {
             m_name = const_cast<Ch *>(qname);
@@ -986,7 +1002,7 @@ namespace rapidxml_ns
             m_local_name = const_cast<Ch *>(local_part);
         }
 
-        // Sets QName as UnprefixedName
+        //! Sets QName as UnprefixedName
         void qname(const Ch *qname, std::size_t qname_size)
         {
             m_name = const_cast<Ch *>(qname);
@@ -1139,6 +1155,11 @@ namespace rapidxml_ns
                 return this->m_parent ? m_next_attribute : 0;
         }
 
+        //! Gets next attribute, matching attribute local name and attribute namespace URI . 
+        //! \param namespace_uri Namespace URI of attribute to find; this string have to be zero-terminated
+        //! \param local_name Local name of attribute to find; this string have to be zero-terminated
+        //! \param local_name_case_sensitive Should local name comparison be case-sensitive; non case-sensitive comparison works properly only for ASCII characters
+        //! \return Pointer to found attribute, or 0 if not found.
         xml_attribute<Ch> *next_attribute_ns(const Ch * namespace_uri, const Ch *local_name, 
                                              bool local_name_case_sensitive = true) const
         {
@@ -1239,6 +1260,11 @@ namespace rapidxml_ns
                 return m_first_node;
         }
 
+        //! Gets first child node, matching node local name and namespace URI.
+        //! \param namespace_uri Namespace URI of child to find; this string have to be zero-terminated
+        //! \param local_name Local name of child to find; this string have to be zero-terminated
+        //! \param local_name_case_sensitive Should local name comparison be case-sensitive; non case-sensitive comparison works properly only for ASCII characters
+        //! \return Pointer to found child, or 0 if not found.
         xml_node<Ch> *first_node_ns(const Ch * namespace_uri, const Ch *local_name, 
                                     bool local_name_case_sensitive = true) const
         {
@@ -1246,7 +1272,7 @@ namespace rapidxml_ns
                 local_name, internal::measure(local_name), local_name_case_sensitive);
         }
 
-        xml_node<Ch> *first_node_ns(const Ch * namespace_uri, std::size_t namespace_uri_size, 
+        xml_node<Ch> *first_node_ns(const Ch *namespace_uri,  std::size_t namespace_uri_size, 
                                     const Ch *local_name,     std::size_t local_name_size, 
                                     bool local_name_case_sensitive = true) const
         {
@@ -1388,6 +1414,11 @@ namespace rapidxml_ns
                 return m_first_attribute;
         }
 
+        //! Gets first attribute of node, matching attribute namespace URI and local name.
+        //! \param namespace_uri Namespace URI of attribute to find; this string have to be zero-terminated
+        //! \param local_name Local name of attribute to find; this string have to be zero-terminated
+        //! \param local_name_case_sensitive Should local name comparison be case-sensitive; non case-sensitive comparison works properly only for ASCII characters
+        //! \return Pointer to found attribute, or 0 if not found.
         xml_attribute<Ch> *first_attribute_ns(const Ch * namespace_uri, const Ch *local_name, 
                                              bool local_name_case_sensitive = true) const
         {
@@ -1737,15 +1768,6 @@ namespace rapidxml_ns
         {
         }
 
-        template<int Flags>
-        void parse(Ch *text)
-        {
-            if (Flags & parse_no_namespace)
-                parse_ns<Flags, internal::xml_namespace_processor_stub<Ch> >(text);
-            else
-                parse_ns<Flags, internal::xml_namespace_processor<Ch> >(text);
-        }
-
         //! Parses zero-terminated XML string according to given flags.
         //! Passed string will be modified by the parser, unless rapidxml_ns::parse_non_destructive flag is used.
         //! The string must persist for the lifetime of the document.
@@ -1757,6 +1779,18 @@ namespace rapidxml_ns
         //! Document can be parsed into multiple times. 
         //! Each new call to parse removes previous nodes and attributes (if any), but does not clear memory pool.
         //! \param text XML data to parse; pointer is non-const to denote fact that this data may be modified by the parser.
+        template<int Flags>
+        void parse(Ch *text)
+        {
+            if (Flags & parse_no_namespace)
+                parse_ns<Flags, internal::xml_namespace_processor_stub<Ch> >(text);
+            else
+                parse_ns<Flags, internal::xml_namespace_processor<Ch> >(text);
+        }
+
+        //! Use parse() instead. 
+        //! Parses zero-terminated XML string according to given flags and NamespaceProcessor passed.
+        //! Should be called only when default xml_namespace_processor is substituted with custom one.
         template<int Flags, class NamespaceProcessor>
         void parse_ns(Ch *text)
         {
